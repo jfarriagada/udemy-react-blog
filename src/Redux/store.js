@@ -97,6 +97,20 @@ const post_error = (state=null, action) => {
         }
 }
 
+const post_created = (state=null, action) => {
+    var new_state = Object.assign({}, state)
+    
+    switch (action.type) {
+        case 'CREATED_POST':
+            new_state = 'Post creado con éxito.'
+            return new_state
+        case 'ERROR_CREATED_POST':
+            new_state = 'Error al crear el Post.'
+            return new_state
+        default:
+            return null
+        }
+}
 
 const reducer = combineReducers({
     allPosts: allPosts,
@@ -105,7 +119,8 @@ const reducer = combineReducers({
     session: session,
     pagination : pagination,
     post : post,
-    post_error : post_error
+    post_error : post_error,
+    post_created: post_created
 })
 
 const store = createStore(reducer)
