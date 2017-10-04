@@ -16,7 +16,7 @@ const validate = values => {
   return errors
 }
 
-// El renderField itera sobre cada elemento del form 
+// El renderField itera sobre cada elemento del form
 // por el component que se pasa en el Field 'component={renderField}'
 const renderField = ({ input, label, type, meta: { touched, error, warning }}) =>
   <div>
@@ -65,6 +65,6 @@ const PostForm = props => {
 }
 
 export default reduxForm({
-  form: 'FormValidation', // a unique identifier for this form
+  form: 'FormPostValidation', // a unique identifier for this form
   validate, // <--- validation function given to redux-form
 })(PostForm)

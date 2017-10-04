@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-// redux 
+// redux
 import { connect } from 'react-redux'
+import { reset } from 'redux-form'
 import axios from 'axios'
 // Components
 import PostForm from './PostForm'
@@ -12,13 +13,13 @@ const CreateUserPost = (props) => {
         console.log(props.login.jwt)
         let config = {'Authorization':'Bearer' + props.login.jwt}
 
-        axios.post('https://blog-api-u.herokuapp.com/v1/posts', 
+        axios.post('https://blog-api-u.herokuapp.com/v1/posts',
             {
                 post: {
                     title: data.title,
                     body: data.body
                 }
-            }, 
+            },
             {
                 headers: config
             }
@@ -52,6 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         create: () => {
+            dispatch(reset('FormPostValidation')) // Form
             dispatch({type:'CREATED_POST'})
         },
         error: () => {
