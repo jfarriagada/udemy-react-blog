@@ -1,6 +1,6 @@
-// Less state component 
+// Less state component
 import React, { Component } from 'react'
-// redux 
+// redux
 import { connect } from 'react-redux'
 // request server
 import axios from 'axios'
@@ -19,15 +19,23 @@ class Home extends Component {
     componentWillUnmount = () => {
       this.props.clear()
     }
-    
-    
+
+
     allPosts = () => {
         const posts = this.props.allPosts.map((post) => {
-            return (
-                <Link to={`/post/${post.id}`} key={post.id}>
-                    <h4 key={post.id}>{post.title}</h4>
-                </Link>
-            )
+            if (this.props.login && this.props.login.id == post.user_id) {
+              return (
+                  <Link to={`${post.user_id}/post/${post.id}`} key={post.id}>
+                      <h4 key={post.id}>{post.title}</h4>
+                  </Link>
+              )
+            } else {
+              return (
+                  <Link to={`/post/${post.id}`} key={post.id}>
+                      <h4 key={post.id}>{post.title}</h4>
+                  </Link>
+              )
+            }
         })
         return posts
     }
@@ -47,7 +55,8 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        allPosts: state.allPosts
+        allPosts: state.allPosts,
+        login: state.session
     }
 }
 
@@ -59,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         .then(function(response){
             console.log(response)
             dispatch({
-                type: "DATA_LOADED", 
+                type: "DATA_LOADED",
                 data: response.data
             })
         })

@@ -27,7 +27,7 @@ const HeaderLoginFalse = () => {
 // less state component (nfn tab)
 // Route exact toma exactamente '/' y no se repite en el render nav
 const App = (props) => {
-  
+
   if (props.login !== null && props.login.message === undefined) {
     // True Login router
     console.log("logueado")
@@ -42,6 +42,8 @@ const App = (props) => {
             <Route exact path='/post/:id' component={Post} />
             <Route path='/:user/posts' component={UserPost} />
             <Route path='/:user/create' component={CreateUserPost} />
+            {/* Se reutiliza el Component Post */}
+            <Route path='/:user/post/:id' component={Post} />
         </div>
       </Router>
     )
@@ -70,7 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      
+
     }
 }
 

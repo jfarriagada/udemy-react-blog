@@ -9,7 +9,7 @@ const allPosts = (state=[], action) => {
     switch (action.type) {
         case 'DATA_LOADED':
             // logic
-            new_state = state.concat(action.data) 
+            new_state = state.concat(action.data)
             return new_state
         case 'DATA_CLEAR':
             new_state = []
@@ -53,7 +53,7 @@ const session = (state = null, action) => {
 
 const pagination = (state = {total: 1, page: 1}, action) => {
     var new_state = Object.assign({}, state)
-    
+
     switch (action.type) {
         case 'SET_CURRENT':
             new_state.page = action.page
@@ -68,7 +68,7 @@ const pagination = (state = {total: 1, page: 1}, action) => {
 
 const post = (state = {}, action) => {
     var new_state = Object.assign({}, state)
-    
+
     switch (action.type) {
         case 'GET_POST':
             new_state = action.data
@@ -86,7 +86,7 @@ const post = (state = {}, action) => {
 // es recomendable dejar el state default null
 const post_error = (state=null, action) => {
     var new_state = Object.assign({}, state)
-    
+
     switch (action.type) {
         case 'ERROR_GET_POST':
             new_state = { error: 'Error al cargar el Post.'}
@@ -99,7 +99,7 @@ const post_error = (state=null, action) => {
 
 const post_created = (state=null, action) => {
     var new_state = Object.assign({}, state)
-    
+
     switch (action.type) {
         case 'CREATED_POST':
             new_state = 'Post creado con éxito.'
@@ -112,6 +112,33 @@ const post_created = (state=null, action) => {
         }
 }
 
+const post_user = (state=[], action) => {
+    var new_state = Object.assign({}, state)
+
+    switch (action.type) {
+        case 'USER_POSTS':
+            new_state = action.data
+            return new_state
+        case 'CLEAR_USER_POSTS':
+            new_state = []
+            return new_state
+        default:
+            return state
+        }
+}
+
+const error_post_user = (state=null, action) => {
+    var new_state = Object.assign({}, state)
+
+    switch (action.type) {
+        case 'ERROR_USER_POSTS':
+            new_state = 'Error al cargar los Posts o no tiene Posts.'
+            return new_state
+        default:
+            return null
+    }
+}
+
 const reducer = combineReducers({
     allPosts: allPosts,
     form: formReducer,
@@ -120,7 +147,9 @@ const reducer = combineReducers({
     pagination : pagination,
     post : post,
     post_error : post_error,
-    post_created: post_created
+    post_created: post_created,
+    post_user,
+    error_post_user
 })
 
 const store = createStore(reducer)
