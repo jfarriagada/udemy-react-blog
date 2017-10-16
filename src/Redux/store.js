@@ -9,7 +9,7 @@ const allPosts = (state=[], action) => {
     switch (action.type) {
         case 'DATA_LOADED':
             // logic
-            new_state = state.concat(action.data)
+            new_state = action.data
             return new_state
         case 'DATA_CLEAR':
             new_state = []

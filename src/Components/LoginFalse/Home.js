@@ -13,12 +13,19 @@ import Pagination from '../Pagination'
 class Home extends Component {
     // solo se ejecuta una vez, ideal para cargar request del server
     componentDidMount = () => {
-      this.props.dispatch1()
+      this.props.dispatch1(this.props.pagination.page)
     }
     // se limpia la data para que no se repita la data al navegar en el nav
     componentWillUnmount = () => {
       this.props.clear()
     }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.pagination.page != this.props.pagination.page) {
+            this.props.dispatch1(nextProps.pagination.page)
+        }
+    }
+    
 
 
     allPosts = () => {
@@ -56,14 +63,15 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         allPosts: state.allPosts,
-        login: state.session
+        login: state.session,
+        pagination: state.pagination
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      dispatch1: () => {
-        axios.get('https://blog-api-u.herokuapp.com/v1/posts')
+      dispatch1: (page) => {
+        axios.get(`https://blog-api-u.herokuapp.com/v1/posts?page=${page}`)
         // promises
         .then(function(response){
             console.log(response)
