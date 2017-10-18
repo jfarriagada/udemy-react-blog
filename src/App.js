@@ -6,6 +6,7 @@ import Signup from './Components/LoginFalse/Signup/Signup'
 import Login from './Components/LoginFalse/Login/Login'
 import HeaderLoginTrue from './Components/LoginTrue/HeaderLoginTrue'
 import Post from './Components/Post'
+import EditPost from './Components/EditPost'
 import UserPost from './Components/LoginTrue/UserPost'
 import CreateUserPost from './Components/LoginTrue/CreateUserPost'
 // connect
@@ -43,7 +44,8 @@ const App = (props) => {
             <Route path='/:user/posts' component={UserPost} />
             <Route path='/:user/create' component={CreateUserPost} />
             {/* Se reutiliza el Component Post */}
-            <Route path='/:user/post/:id' component={Post} />
+            <Route exact path='/:user/post/:id' component={Post} />
+            <Route path='/:user/post/:id/edit' component={EditPost} />
         </div>
       </Router>
     )

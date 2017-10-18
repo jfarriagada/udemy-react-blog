@@ -139,6 +139,36 @@ const error_post_user = (state=null, action) => {
     }
 }
 
+const edit_post = (state = {}, action) => {
+    var new_state = Object.assign({}, state)
+
+    switch (action.type) {
+        case 'GET_POST':
+            new_state = action.data
+            return new_state
+        case 'CLEAR_EDIT_POST':
+            new_state = {}
+            return new_state
+        default:
+            return state
+        }
+}
+
+const msg_edit_post = (state = null, action) => {
+    var new_state = Object.assign({}, state)
+
+    switch (action.type) {
+        case 'EDITED_POST':
+            new_state = "Post editado correctamente."
+            return new_state
+        case 'ERROR_EDITED_POST':
+            new_state = "Error al editar el Posts."
+            return new_state
+        default:
+            return null
+        }
+}
+
 const reducer = combineReducers({
     allPosts: allPosts,
     form: formReducer,
@@ -149,7 +179,9 @@ const reducer = combineReducers({
     post_error : post_error,
     post_created: post_created,
     post_user,
-    error_post_user
+    error_post_user,
+    edit_post,
+    msg_edit_post
 })
 
 const store = createStore(reducer)

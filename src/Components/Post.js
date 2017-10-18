@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // redux 
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 class Post extends Component {
@@ -14,10 +15,21 @@ class Post extends Component {
         this.props.clear_state()
     }
     
+    edit = () => {
+        if (this.props.routerProps.match.params.user && this.props.error === null) {
+            return(
+                <Link to={`/${this.props.post.user_id}/post/${this.props.post.id}/edit`}>
+                    Editar
+                </Link>
+            )
+        }
+    }
+    
 
     render() {
         return (
         <div>
+            {this.edit()}
             <h4>{this.props.error}</h4>
             <h4>{this.props.post.title}</h4>
             <h4>{this.props.post.body}</h4>
@@ -26,10 +38,11 @@ class Post extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
         post : state.post,
-        error : state.post_error
+        error : state.post_error,
+        routerProps : ownProps
     }
 }
 
