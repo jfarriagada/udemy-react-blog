@@ -169,6 +169,21 @@ const msg_edit_post = (state = null, action) => {
         }
 }
 
+const msg_delete_post = (state = null, action) => {
+    var new_state = Object.assign({}, state)
+
+    switch (action.type) {
+        case 'DELETED_POST':
+            new_state = "Post aliminado correctamente."
+            return new_state
+        case 'ERROR_DELETED_POST':
+            new_state = "Error al aliminar el Post."
+            return new_state
+        default:
+            return null
+        }
+}
+
 const reducer = combineReducers({
     allPosts: allPosts,
     form: formReducer,
@@ -181,7 +196,8 @@ const reducer = combineReducers({
     post_user,
     error_post_user,
     edit_post,
-    msg_edit_post
+    msg_edit_post,
+    msg_delete_post
 })
 
 const store = createStore(reducer)
